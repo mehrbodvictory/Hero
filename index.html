@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STW Custom Hero Maker | Mehrbod Victory</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;overflow:hidden;background:linear-gradient(135deg,#3d8de0,#2c68c9 55%,#2a56b6);color:#fff;font-family:Rubik,system-ui,sans-serif}
+#ban{position:fixed;top:0;left:0;right:0;z-index:20;background:linear-gradient(90deg,#c2185b,#6a1b9a);text-align:center;padding:8px 44px;font-size:15px}
+#ban a{color:#fff;font-weight:700}
+#bx{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.go{background:#e11d48!important}
+#hint{width:100%;opacity:.65;font-size:13px}
+#vp{position:fixed;inset:0;overflow:hidden}
+#lb>*{position:absolute}
+#stars svg{width:22px;height:22px;fill:#fff}
+#tl{display:none;left:285px;top:1018px;width:690px;height:60px;flex-wrap:wrap;gap:4px 8px;align-content:center;align-items:center;z-index:6}
+#tl.on{display:flex}
+#tl button,#tl select{background:#25397a;color:#fff;border:0;border-radius:5px;padding:0 11px;height:26px;font:600 16px Rubik,sans-serif;cursor:pointer}
+#tl button:hover{background:#3550a8}
+#tl .rd{background:#e11d48}
+#tl label{display:flex;gap:5px;align-items:center;color:#cfe0ff;font-size:16px}
+.e:empty{min-width:70px;min-height:1.1em}
+#icm{display:none;left:34px;top:228px;z-index:6;gap:8px;padding:8px;background:#0f204b;border:2px solid var(--rb);border-radius:6px;align-items:center}
+#icm.on{display:flex}
+#icm button{width:50px;height:50px;background:#25397a;border:0;border-radius:6px;color:#fff;font:600 18px Rubik,sans-serif;cursor:pointer;display:grid;place-items:center}
+#icm img{width:34px;height:34px;object-fit:contain}
+#st{--rh:#d9700f;--rb:#c9632a;--rt:#ffcf6a;position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:linear-gradient(135deg,#3d8de0,#2c68c9 55%,#2a56b6);font-family:Rubik,sans-serif}
+.pat{position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.045) 0 3px,transparent 3px 90px),repeating-linear-gradient(-45deg,rgba(255,255,255,.045) 0 3px,transparent 3px 90px)}
+.a{position:absolute}
+.e{outline:none;cursor:text}
+.e:hover{box-shadow:0 0 0 1px rgba(255,255,255,.45)}
+.e:focus{box-shadow:0 0 0 2px #fff}
+.ex .e{box-shadow:none!important}.ex .nx{display:none!important}
+.pn{position:absolute;top:102px;height:889px;border:6px solid var(--rb);overflow:hidden}
+#lp{left:13px;width:464px;background:linear-gradient(#162a5e,#27356c)}
+#mp{left:481px;width:480px;background:#0d1c48;overflow-y:auto;scrollbar-width:thin}
+#hd{position:relative;height:165px;background:var(--rh)}
+#hd>*{position:absolute}
+#rar{left:15px;top:10px;font-size:22px;font-weight:600;color:var(--rt);white-space:nowrap}
+#nm{left:15px;top:40px;font:italic 37px/1.1 Anton,Impact,sans-serif;width:220px;overflow:hidden;white-space:nowrap;text-transform:uppercase;letter-spacing:-.3px}
+#wb{right:0;top:44px;width:212px;height:56px;overflow:hidden;background:rgba(30,12,4,.82);display:flex;align-items:center;gap:8px;padding:0 6px 0 8px;font-size:18px;line-height:1.12}
+#wb .e{min-width:0}
+#cl{left:20px;top:85px;display:flex;align-items:center;gap:4px;font-size:24px;font-weight:600;color:var(--rt)}
+#lb{left:0;right:0;top:123px;height:42px;background:rgba(0,0,0,.14)}
+#pw{left:20px;top:0;width:73px;height:42px;background:rgba(255,255,255,.28);transform:skewX(-8deg);text-align:center;font:34px/42px Anton,Impact,sans-serif}
+#stars{left:141px;top:0;height:42px;display:flex;align-items:center;gap:1.2px;cursor:pointer}
+#lv{right:16px;top:0;font-size:26px;line-height:42px;font-weight:600}
+#sm{height:56px;background:#0f204b;display:flex;align-items:center;padding:0 30px;font-size:22px}
+.g{width:212px;display:flex;gap:12px;align-items:baseline;color:#cfd9ee}
+.g b{font-size:27px;color:#fff;font-weight:600}
+.rw{position:relative;height:39.5px;margin-bottom:1.9px;background:#1b2f66;display:flex;justify-content:space-between;align-items:center;padding:0 11px;font-size:22px;color:#dfe8f8}
+.v{font-weight:600;color:#fff}
+.x{display:none;position:absolute;left:-1px;top:-1px;background:#e11d48;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;font-size:15px;line-height:20px;cursor:pointer;z-index:3}
+.rw:hover .x,.pk:hover .x{display:block}
+.sc{border-bottom:3px solid #1a2d63}
+.sh{font-size:22.5px;font-weight:600;color:#aab8d6;padding:12px 17px 4px;display:flex;justify-content:space-between;letter-spacing:.3px}
+.ab{font-size:14px;background:#25397a;border-radius:5px;padding:3px 8px;cursor:pointer;align-self:center}
+.pk{position:relative;display:flex;gap:25px;padding:6px 17px 4px}
+.ic{width:100px;height:100px;flex:none;cursor:pointer;display:grid;place-items:center}
+.ic svg{width:88px;height:88px}
+.pt{font-weight:700;font-size:19px;text-transform:uppercase;line-height:1.3}
+.pd{font-size:20px;line-height:25px;color:#d5dff3}
+.nt{font-style:italic;font-size:21.5px;line-height:30px;color:#7a8fb6;padding:14px 24px}
+.cy{color:#1fd2dd}.yl{color:#d9e04a}.wh{color:#fff;font-weight:700}
+#hx{display:none;place-items:center;left:1856px;top:92px;width:44px;height:44px;border-radius:50%;background:#e11d48;color:#fff;font-size:26px;line-height:44px;text-align:center;cursor:pointer;z-index:4}
+#hi{left:960px;top:60px;width:960px;height:956px;overflow:hidden;cursor:grab;touch-action:none}
+#him{display:none;position:absolute;pointer-events:none}
+#ph{position:absolute;inset:60px;border:3px dashed rgba(255,255,255,.55);border-radius:14px;display:grid;place-items:center;font-size:28px;text-align:center;background:rgba(255,255,255,.06);cursor:pointer}
+.t2{top:40px;width:200px;text-align:center;font-size:26px;font-weight:600;cursor:pointer}
+.bp{top:44px;width:28px;height:28px;border:2px solid #cfe0ff;border-radius:50%;font-size:14px;text-align:center;line-height:24px}
+.pl{top:42px;width:36px;height:26px;border-radius:5px;background:#fff;color:#000;font-size:15px;font-weight:700;text-align:center;line-height:26px}
+#pb{cursor:pointer;left:1520px;top:952px;width:382px;height:47px;background:#dce8f6;border-radius:3px;color:#18306a;font-size:26px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:14px}
+#bb{left:0;top:1016px;width:1920px;height:64px;background:#141b52}
+.bi{top:1030px;width:34px;height:34px;border:3px solid #cfe0ff;border-radius:9px;font-size:11px;text-align:center;line-height:28px;color:#cfe0ff}
+.bt{top:1030px;font-size:25px;color:#a9c3ee;line-height:36px}
+#md{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9;align-items:center;justify-content:center;padding:16px}
+#md.on{display:flex}
+#mc{position:relative;background:#121c3e;border-radius:12px;max-width:940px;width:100%;max-height:96vh;overflow:auto;padding:16px;text-align:center}
+#mc img{width:100%;border-radius:6px}
+#mc a.b,#mc button{display:inline-block;margin:6px;background:#25397a;color:#fff;border:0;border-radius:8px;padding:10px 18px;font:600 15px Rubik,sans-serif;text-decoration:none;cursor:pointer}
+#mc #mx{display:grid;place-items:center;position:absolute;top:10px;right:10px;margin:0;width:38px;height:38px;border-radius:50%;padding:0;font-size:20px;background:#e11d48}
+#mc .sub{background:#e11d48;font-size:17px}
+</style></head><body>
+<div id="ban" class="top">Made by <b>Mehrbod Victory</b> — more Save the World videos: <a href="https://www.youtube.com/@mehrbodvictory" target="_blank">subscribe @mehrbodvictory</a><button id="bx" title="Close"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2.4" fill="none"/></svg></button></div>
+<div id="vp"><div id="st">
+<div class="pat"></div>
+<div class="a" id="hi"><img id="him" alt=""><div id="ph" class="nx">Click here or drop your hero image<br>(transparent PNG works best)</div></div>
+<div id="hx" class="a nx" title="Remove image"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2.4" fill="none"/></svg></div>
+<div class="a e" style="left:41px;top:34px;font-size:24px;font-weight:600;color:#6db4f2">Game</div>
+<svg class="a" style="left:9px;top:38px" width="28" height="26" viewBox="0 0 28 26"><path fill="#6db4f2" d="M2 9h6l9-6v20l-9-6H2z"/></svg>
+<div class="a t2" id="t0" style="left:530px">PERKS</div><div class="a t2" id="t1" style="left:710px">ABILITIES</div>
+<div class="a bp" style="left:510px">R</div><div class="a bp" style="left:902px">R</div>
+<div class="a" style="left:514px;top:87px;width:410px;height:6px;background:rgba(255,255,255,.35)"></div>
+<div class="a" id="b2" style="left:542px;top:87px;width:178px;height:6px;background:#fff"></div>
+<svg class="a" style="left:1738px;top:36px" width="26" height="30" viewBox="0 0 26 30"><path d="M20 3L6 15l14 12" fill="none" stroke="#fff" stroke-width="5"/></svg>
+<div class="a pl" style="left:1780px">L1</div><div class="a pl" style="left:1816px">R1</div>
+<svg class="a" style="left:1858px;top:36px" width="26" height="30" viewBox="0 0 26 30"><path d="M6 3l14 12L6 27" fill="none" stroke="#fff" stroke-width="5"/></svg>
+
+<div class="pn" id="lp">
+<div id="hd">
+<div id="rar" class="e">Legendary | Hero</div>
+<div id="nm" class="e">Diecast Jonesy</div>
+<div id="wb"><svg width="26" height="24" viewBox="0 0 32 30" style="flex:none"><path d="M16 2L30 28H2z" fill="#e5251c"/><path d="M16 11v8M16 22v2" stroke="#fff" stroke-width="3"/></svg><div class="e">Item has achieved maximum level.</div></div>
+<div id="cl"><img id="cic" alt="" style="cursor:pointer"><span class="e">Soldier</span></div>
+<div id="lb"><div id="pw"><span class="e" style="display:inline-block;transform:skewX(8deg)">130</span></div><div id="stars"></div><div id="lv" class="e">LV 50 / 50</div></div>
+</div>
+<div id="sm"><div class="g"><span class="e">Health</span><b class="e">445,807</b></div><div class="g"><span class="e">Shield</span><b class="e">172,826</b></div></div>
+<div id="rows"></div>
+</div>
+
+<div class="pn" id="mp"><div id="pp"></div><div id="ap" style="display:none"></div></div>
+
+<div id="pb" class="a nx"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="14" fill="none" stroke="#18306a" stroke-width="3"/><path d="M17 9l8 14H9z" fill="none" stroke="#18306a" stroke-width="3"/></svg><span id="exl">EXPORT IMAGE</span></div>
+
+<div id="bb" class="a"></div>
+<div class="a bi" style="left:31px;border-radius:50%;color:#fff;border-color:#fff">≡</div><div class="a bt e" style="left:60px;font-weight:700;color:#fff">Chat (Double-tap)</div>
+<div class="a bi tg nx" style="left:985px;border-color:#ff4d4d;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 5h14M2 13h14" stroke="#ff4d4d" stroke-width="2"/><circle cx="6" cy="5" r="2.5" fill="#ff4d4d"/><circle cx="12" cy="13" r="2.5" fill="#ff4d4d"/></svg></div><div class="a bt tg nx" style="left:1014px;cursor:pointer;color:#ff4d4d;font-weight:700">TOOLS</div>
+<div class="a bi" style="left:1155px">L3</div><div class="a bt e" style="left:1183px">View</div>
+<div class="a bi" style="left:1295px">R3</div><div class="a bt e" style="left:1324px">Favorite</div>
+<div class="a bi" style="left:1470px;border-radius:50%">▣</div><div class="a bt e" style="left:1500px">Upgrade</div>
+<div class="a bi" style="left:1657px;border-radius:50%">◯</div><div class="a bt e" style="left:1686px">Back</div>
+<div class="a bi" style="left:1795px;border-radius:14px">◖◗</div><div class="a bt e" style="left:1824px">Close</div>
+<div id="tl" class="a nx">
+<select id="rs"><option>Legendary</option><option>Mythic</option><option>Epic</option><option>Rare</option><option>Uncommon</option><option>Common</option></select>
+<button id="as">+ Stat</button>
+<button data-c="#1fd2dd" style="color:#1fd2dd">Cyan</button><button data-c="#d9e04a" style="color:#d9e04a">Yellow</button><button data-c="#ffffff">White bold</button>
+<button id="clr" class="rd">Clear</button>
+<label><input id="cw" type="checkbox" checked> Max level box</label>
+</div>
+<div id="icm" class="a nx"></div>
+</div></div>
+
+<div id="md"><div id="mc"><button id="mx" title="Close"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2.4" fill="none"/></svg></button><img id="pv" alt="Your hero">
+<div><a class="b" id="dl" download="stw-custom-hero.png">Download image</a></div>
+<p style="margin:8px 0 0;font-size:16px">Made this hero? Subscribe to <b>@mehrbodvictory</b> for more Save the World content.</p>
+<a class="b sub" href="https://www.youtube.com/@mehrbodvictory" target="_blank">Subscribe on YouTube</a></div></div>
+
+<script>
+const $=s=>document.querySelector(s),st=$('#st'),vp=$('#vp');let K=1;
+function fit(){K=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform=`scale(${K})`;st.style.left=(innerWidth-1920*K)/2+'px';st.style.top=(innerHeight-1080*K)/2+'px'}
+addEventListener('resize',fit);fit();
+const ed=r=>r.querySelectorAll('.e').forEach(x=>x.contentEditable=true);
+const ICO={rocket:'<svg viewBox="0 0 100 100"><path fill="#fff" d="M52 6C80 22 88 52 70 78L56 66 60 90 46 76 30 82 34 60 18 62C22 34 34 16 52 6Z"/><circle cx="55" cy="38" r="8" fill="#12234f"/></svg>',burst:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="none" stroke="#fff" stroke-width="8"/><path d="M50 6v24M50 70v24M6 50h24M70 50h24" stroke="#fff" stroke-width="8"/><circle cx="50" cy="50" r="8" fill="#fff"/></svg>'};
+function pk(t,d,ic,cy){const p=document.createElement('div');p.className='pk';p.innerHTML=`<div class="ic">${ICO[ic]}</div><div><div class="pt e"${cy?' style="color:#22d3de"':''}>${t}</div><div class="pd e">${d}</div></div><span class="x nx">×</span>`;ed(p);return p}
+function sc(h,perks,note,cy){const s=document.createElement('div');s.className='sc';s.innerHTML=`<div class="sh"><span class="e"${cy?' style="color:#2fd4e6"':''}>${h}</span><span class="ab nx">+ perk</span></div><div class="ps"></div>`+(note?`<div class="nt e">${note}</div>`:'');perks.forEach(p=>s.querySelector('.ps').append(pk(...p)));ed(s);return s}
+function rw(l,v){const r=document.createElement('div');r.className='rw';r.innerHTML=`<span class="e">${l}</span><span class="e v">${v}</span><span class="x nx">×</span>`;ed(r);$('#rows').append(r)}
+[['Health','445,807'],['Shield','172,826'],['Shield Regen Rate','43,324'],['Shield Regen Delay','8'],['Hero Ability Damage','18.5'],['Hero Healing Modifier','18.46'],['Run Speed','410'],['Sprint Speed','550']].forEach(r=>rw(...r));
+const Y=t=>`<span class="yl">${t}</span>`,C=t=>`<span class="cy">${t}</span>`,W=t=>`<span class="wh">${t}</span>`;
+$('#pp').append(
+sc('STANDARD PERK',[['Boomstick!',`Increases ${Y("Goin' Commando")} ${W('Damage')} by ${C('25%')}.`,'rocket']],'Passive bonus granted if this hero is slotted in a Hero Loadout.'),
+sc('COMMANDER PERK',[['Boomstick! +',`Increases ${Y("Goin' Commando")} ${W('Damage')} by ${C('50%')} and changes Damage type to ${W('Energy')}.`,'rocket',1]],'Replaces the Standard Perk if this hero is slotted as the Commander.',1),
+sc('CLASS PERKS',[['Suppressive Fire',`Consecutive shots against the same target deal an additional ${C('3%')} ${W('Damage')}, up to ${C('5 stacks')}. Bonus lost on target switch.`,'burst'],['Stay Frosty',`After ${C('3')} eliminations, increases ${W('Ranged Weapon Damage')} by ${C('10%')} and ${W('Weapon Stability')} by ${C('35%')} for ${C('5 seconds')}.`,'burst']]));
+$('#ap').append(sc('HERO ABILITY',[['Your ability name','Describe what this ability does.','rocket']]));
+function tab(n){$('#pp').style.display=n?'none':'block';$('#ap').style.display=n?'block':'none';$('#b2').style.left=n?'722px':'542px';$('#b2').style.width=n?'180px':'178px'}
+$('#t0').onclick=()=>tab(0);$('#t1').onclick=()=>tab(1);
+const stars=$('#stars');for(let i=1;i<=5;i++){const e=document.createElementNS('http://www.w3.org/2000/svg','svg');e.setAttribute('viewBox','0 0 24 24');e.innerHTML='<path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.2L12 17.7 5.6 21.2 7 14l-5.3-5 7.2-.9z"/>';e.onclick=()=>[...stars.children].forEach((c,k)=>c.style.opacity=k<i?1:.3);stars.append(e)}
+function pick(cb){const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>rd(i.files[0],cb);i.click()}
+function rd(f,cb){if(!f)return;const r=new FileReader();r.onload=()=>cb(r.result);r.readAsDataURL(f)}
+const H={x:0,y:0,s:1},hm=$('#him'),hi=$('#hi');
+const ap=()=>hm.style.transform=`translate(${H.x}px,${H.y}px) scale(${H.s})`;
+function setImg(u){const i=new Image();i.onload=()=>{const k=Math.min(960/i.width,956/i.height),w=i.width*k,h=i.height*k;hm.style.width=w+'px';hm.style.height=h+'px';hm.style.left=(960-w)/2+'px';hm.style.top=(956-h)+'px';hm.src=u;hm.style.display='block';$('#ph').style.display='none';H.x=H.y=0;H.s=1;$('#hx').style.display='grid';ap()};i.src=u}
+$('#ph').onclick=()=>pick(setImg);function rmImg(){hm.style.display='none';hm.removeAttribute('src');$('#ph').style.display='grid';$('#hx').style.display='none'}$('#hx').onclick=rmImg;
+hi.ondragover=e=>e.preventDefault();hi.ondrop=e=>{e.preventDefault();rd(e.dataTransfer.files[0],setImg)};
+let dr;hi.onpointerdown=e=>{if(hm.style.display!=='block')return;dr={x:e.clientX,y:e.clientY,hx:H.x,hy:H.y};hi.setPointerCapture(e.pointerId)};
+hi.onpointermove=e=>{if(!dr)return;H.x=dr.hx+(e.clientX-dr.x)/K;H.y=dr.hy+(e.clientY-dr.y)/K;ap()};hi.onpointerup=()=>dr=null;
+hi.addEventListener('wheel',e=>{if(hm.style.display!=='block')return;e.preventDefault();H.s=Math.min(4,Math.max(.2,H.s*(e.deltaY<0?1.06:.94)));ap()},{passive:false});
+const R={Mythic:['#d2a93a','#c19a30','#f6df8b'],Legendary:['#d9700f','#c9632a','#ffcf6a'],Epic:['#9b4fd0','#7b3fa8','#e2b8ff'],Rare:['#2f8fe0','#2b72b8','#a9dcff'],Uncommon:['#4fae2e','#3c8a26','#c4f2a8'],Common:['#7d838c','#656a72','#dfe3e8']};
+$('#rs').onchange=e=>{const c=R[e.target.value];['--rh','--rb','--rt'].forEach((k,i)=>st.style.setProperty(k,c[i]));$('#rar').textContent=e.target.value+' | Hero';if(cur)setCls(cur)};
+$('#as').onclick=()=>{rw('New Stat','0')};
+$('#cw').onchange=e=>$('#wb').style.display=e.target.checked?'flex':'none';
+document.querySelectorAll('[data-c]').forEach(b=>b.onmousedown=e=>{e.preventDefault();const c=b.dataset.c;document.execCommand('styleWithCSS',false,true);if(c=='x')document.execCommand('removeFormat');else{document.execCommand('foreColor',false,c);if(c=='#ffffff')document.execCommand('bold')}});
+document.addEventListener('click',e=>{const t=e.target;
+if(t.classList.contains('x'))t.parentElement.remove();
+else if(t.classList.contains('ab')){const s=t.closest('.sc');s.querySelector('.ps').append(pk('New perk','Describe your perk here.','burst'))}
+else if(t.closest('.ic')){const ic=t.closest('.ic');pick(u=>{const g=new Image();g.onload=()=>{const k=Math.min(88/g.width,88/g.height);g.style.width=g.width*k+'px';g.style.height=g.height*k+'px';ic.innerHTML='';ic.append(g)};g.src=u})}});
+document.addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('.e')){e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'))}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList&&e.target.classList.contains('e')&&!e.target.matches('.pd,.nt'))e.preventDefault()});
+ed(st);
+const nmEl=$('#nm');function fitNm(){let f=37;nmEl.style.fontSize=f+'px';while(nmEl.scrollWidth>nmEl.clientWidth&&f>14){f--;nmEl.style.fontSize=f+'px'}}
+nmEl.addEventListener('input',fitNm);document.fonts.ready.then(fitNm);fitNm();
+$('#mx').onclick=()=>$('#md').classList.remove('on');$('#md').onclick=e=>{if(e.target.id=='md')$('#md').classList.remove('on')};
+$('#pb').onclick=async()=>{const b=$('#exl');b.textContent='RENDERING...';
+try{await document.fonts.ready;
+const c=await html2canvas(st,{scale:1.5,backgroundColor:null,width:1920,height:1080,windowWidth:1920,windowHeight:1080,onclone:d=>{const s=d.getElementById('st');s.style.transform='none';s.style.left='0';s.style.top='0';s.classList.add('ex');d.getElementById('vp').style.cssText='position:relative;width:1920px;height:1080px;overflow:visible';d.body.style.overflow='visible';d.querySelectorAll('.top').forEach(x=>x.style.display='none')}});
+const u=c.toDataURL('image/png');$('#pv').src=u;$('#dl').href=u;$('#md').classList.add('on');$('#dl').click()}
+catch(err){alert('Export failed: '+err.message)}
+b.textContent='EXPORT IMAGE'};
+const CI={"soldier": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAtCAYAAADV2ImkAAAFkUlEQVR42tWZ21McRRTGfz2zG0jCPdwJRknUKOAt8RK1rNJYPvjsH+uT5a2ssqJJNDGKirBgBLkIGDYse5nx5euqY9cs7LIbKKaqaxamp/vrc/3OGZemKafpijhlV66Fdy8CA0AXcBY4A8RmzTLwWKMIrANrxw14GBgDngImgKvABaBfwDsEugbsA/8CfwPLwBywAKwCS8cB+DXgGjALTAl8N3BeEs7JxCIBrmoUgV1gA1gE7gF3gQdHkbhrwOnGgVeAd4G3BLZLJpDXnBRIAkH4/zmZRw3YBv4C5oFvgK8FvG0SvgS8CXys+4hAxgKcCBgC5vR3ag7i5zr9HgSeBfqkgQi43w7A48B7wCfAjBysU5u4AKyPOEmwRqw5/iD+kOeBd2RKZ4ES8HsrgIeAN4CbwLTsNW8kiVQcGUCJkarLCJ9JoIW8nHYH2BToP48K+ArwIfC2wlesDWtm41CaLojtLgAeGa0kWrMfuC7QG40AjurY7XXgJWBUh6oYsFlgGrlS7ed0j3XvB16VRqePIuFJvTwutdXM4by6c8a5rIOR8dvV0UBq1hkGbig+byh2NyThceB54EU5mQtsMjKOZKWVJfE041BZUs/J8V5QjO9qxiSmFBGGtIi3OZ8IfJiijjTrgfJ2mwS+UNacDpnGlPxnpFHAE7LhOMNcUpPJEnOANCPEHQYe47w1CScvB5/R3w0BHhBXcHK02AR8b29VYwpZ0iOIIC5DK84kIM89nJz8Zdl0w4D7lSDs4pGx0TQjFdus5swdY1Lh5bXkrzzQIw0/J2kfCHhcYLsF2NWJsz5ppMFhcgKa18hpnXzGO7EZzphJTqn7soR3YFjrMqzLhpx6zpUYsHFwKC99G7+jIEumGetH4hizoqJFEaVMwHl5a2TU6DLiaGq0ExKeWpAF7bNqINnEUFCrpR7RWH/YLuCHLMD+hVygJhrIaqH3J8H6NXMYK+FIgGtBzO5W1usUs7skDr2UC1RcDhwkDWw1PcAJs5w0MoePDcDHqki2teeehn8WGeJfNJHpfxIua1R0sihgZEmGsybBM0twnKk4tgTQr1XRXiXgEfCPSqddpeU9PSuJya0DhRBwUQtVMlKqC+hhbOyyYlJ2RZt5+3skbrAiRobU3WHWKeswmyqfFjV39bAosaKTFuWpkZ5nsTSbXvMCXtLmy8CvAttnilYCR94Uaf9N89f0v9Vm2NqOxmgg3TggQd4evdqWBLRsbLdPY1RSLWnOPPBQ94LC18JRS6RtAa6pnKmaOVVjn1WB25FmFiWZiojLqInNBSWBkiT5GXAH+KUdZb53hD3FP2fi674B66vf25JWhxheLNUuydE29e41MTHvVNvt6EuMiQtfVsazwd4Dfiyg3wnsnECdUUqNdNiimT+qimJQJrFVh1s0DdgT92EBKAvsniTyUADvA9/LWVYb2GNStHVAa24oTLUEeFgS2AF+CsqgnDZaEthbssVGN/XFZqT199vRW1uTirfk2anx+AlV0FeVUHab8OohscAuhcy1VhuC1iT+0BgNVP2R7j3iqcvAF000Dy9KugWZVdv7w6FdbmizPYWsaUl7vIH1n1bJEytJzB9HQ3tZTbuCTGVEJflgA03EZ1RU7skH1o8D8LqC/AMliXOS8tgh711RQ6ZXNl84LsAAP0vK95TtJgRm5gCwN9WmLSqytGwOzTa0b5sOZq8iwJRsfDVoFdxQ9yivmP3jSQBeUakyqL5bj7ryvZL8mjLjjCLLiEDe8lz2JD7K7JvsNQm8Lhr5LfCp4vYHkvyWwt+XctwTATynxNIPvK96q1PN6QtyqkFp4w7webOfBNoNGEnTputz4rs+/a4CX4kg3aXNl2vhS+isEsiwQCfiwwtysgJP4HJt+HQ7EhStSzzBy522b83/Adri6stgJLumAAAAAElFTkSuQmCC", "constructor": "data:image/png;base64,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", "outlander": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAtCAYAAAA6GuKaAAAHhElEQVR42t2Z629UZRfF15k5c2unnQItvWAdoIBWDV6S91UTNUb/2fc/eD+Z6CeNlxgjiggUaEtbSlvawgxzH7/8drJyGGwVMOpJJjNzznmeZ+2117485yTD4VD/tCP3F693ms+o89PHnSR9AcBmIKMoaVzSSUknJE1xTpKakh4bhrKkrqRNSbck3X3RoM9JqgGoJmlCUgXAUzA4zfkSY1p81gDfk5TA+BhGrz0L6HkDVWKRx/x+XdIFSWdZbFJSAQAFzlUxIpU04NoAZt+E2esYsSCpzjxDSet/FPTLsHgGBmrcfyhpj0knJC2z+CnuyeH+iJcxxvUltW3+vs2Rl3QDIkLzPQzZOS7oZUkfSXqf302YK8PcvqQVSb9I+pbF3jQdR5AHq0P+B/g8v9uS5jhXRRI7ki4z7oGkL44DelHSe5I+kLSEtXeZpA5z88bQTwDPSfoPcxT49BgXh/9OkI3QfIn5ViDpNUmr/F87CvQlSR8S8d9LuoYkBgCdk/QxsnkDsJ9L+oHFl1i8zbU++pWxnmSu5fHQPP+3+b8s6bss6GyevizpbQbflHRFUgeGXyIAr0j6StIuhr0h6R3YWeX+LizL9NkzhsOAnEklgZQ6MuyQLpcI0JFMLyCLt9HVDUmzkj7lu4OrvpT0M6yOE4CXCc59WCpi0HGKWs4kNWTsJIaXyVDXJG2MGjwr6b9E7yqTLCOXM2STdyS9C9ifJN1m7Anu6ZKmgsVgMmfr5TIaH2S8UAZLmfi5QBarjwK9yGcA0wuSznNPmwlryOFdFlpB7ynyqRDxHeSSPCVuAmwKs0XLKhVAFyGuBnFzo0CfYkCPyeas9FasNNfQWVXSASDDUzOMb1rKk7HZM8DRqbXxUIuY2SFe2hif4MWTWU3PAKxgBSGKRV9SAxaGuG2CYN0mYKcxcAojWgCJXOwSCFb73BsFp2sk7LNmjXVOOcGpaanAhMNMYHh0x33RV6yzSBcQUZ53YGaC/x1juMHnISBbgGwBrMB3FW+XGJfPgt5moauS7rOIzIDESm+PCaqc20MO0WOMofMDFj9k/hbz9jCkyfhxcMxgaMk805V0j+zxYFTK25X0o6RHDLjOhBN8x+RRHKZITS3TahmmNvk/DrhdxkQmieo3xj1F5s4zLrS9Dp5NPPME6DLWplj2NbnxJEF23q4LYyZZpGBaL+PuA8aWLUamADxuGj4EVOi7yLUbzDtr8fUE6Cr1fpv8W2LBBkasslgERwnWU2N6UtJFxvWM0aIF5QZAo8UNT0VROYNXWnho3rrBJ0CHe6NpPwO7FYDfR78bGDGQtMWYDdiI4CmYSx/x3QBkh08Nz53FuPDcJPdugW8Cz3VGgW5afo3MMQP4lEluASaCa5d7rzLpJPc2KDy7sFixDYC4ntDOXmJciXPRd6ec6yKdkZruArQCe0PORQDW0egA121J+oy29EckFYWlg1vD6LOWGVYk/Q+DLlFhK5a/ezAb27AGXd7hKNBRgYq4OQfoxPSdcr7H9ylJr9IwiYxzwPhX6V1OADgK1zoAvNce2j6xwxwN6xAf+q7HQTewcAF2GwwYWqoq892xvmKazrBshuVpcl6xzNJl7DjMDq2/iN46sRTZwPj+UaAPGJRaT5BYtxbua3NfeKdMANatjJdMp8p0fpFiZXk/ilgPaUQ+b2VBe8P0kIT+wHTrfUNi+7y47nu/xEDEzj1n1wsYHSU9djaDEZV3QG4vgisC/wmmWwB+ZJWpbRKJ7q9rbERmyFtctFmwwBxFa5aiSi4BeCbT1+RNx7HWLphG7lw2uTjIbPuHmXQ14HzTWM22n3mbP8/i0fTMS/ok04MrI4+2rbFhQTlyY9tiYNWeBg1swqhuiXVtJeude1bdUnN9avKKFrhkOu+bZ9uA7FgHuPl7oJuwvWhuHVg/IAuIA9vRyDzSt8Yp3ByNVvTRYzYuZ6wmyKFpaxz5sGbfknhMFmW4jB5b1j93bduUmEE5q6y+vepbfAws0B6Tv2+zqTgkGx14+X4a6AbB+Bhr78PKRSrbkGsD2+GUkY1vYNOM2xM714C9HXqZbYx9xNp5ep5Jqm73KNDReaU0NGuSvsFlF6luZYvsFI22LCAL3FcwdhsGbA8ydijpXe6t0oYu2q5o+zigWyw0zeOEGqX5Jt8pFXPBdiM1PNC0fD4J2HhYeRuA9zgfG+U5MshpgA6RwzpPt67D9u+CvgMD+zQ5BQDuwfo2E8bvJWtJm/aw5rqkX01q21aWX2bOsm0ceqS223SS62wCrhz3Ue8NSf+n+3oJly0jkS3Y2oXNRZNCpKu7PDYr2jPrOuzOMF8CEXesRw8ytv7Mm4DvYe0qOj5H31u1jUEb8DXbUlX4PWXbpDoSiL1itJlrMHoNLzw4CqgfyRFvtxZx/zl63wucm8WIvKXC2DnvWRpMkcwdPLgCo/tmwB8+kmO+kpuzbdgiLed5DJmG4bZlhbtUsVVY3ILRkMQzHcmfeI94GrdflPQWzX6dgLtlAXTTwD/XI3mGl5+LsH2OjCDcfxUJ3HtRLyOT5/DGdtZeZTSe9kbq7wb6X/+a+bkcvwEl6LdvFoNAewAAAABJRU5ErkJggg==", "ninja": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAtCAYAAADV2ImkAAAFDElEQVR42tWZ609URxjGf7uwCGzkvlAugiCgNDVYlTSttdW0th+a/q9N0+9tTdpEbbU3taBCKXJdKPddcIHtl99JJgRBOYtZT3Kym7NzZp555nmf953ZRLFY5G26km94vHNAJk4HlW8IaAvwLtAJPAay5Q64H/gU6AAWy53hS8ANAe/GHfOkNXwBGBHwIFAr6NZyZHgIuAl8pX7TwA5QAyyUkuGWEoBtVwqfAReB05KTlOFMqRjuk41dYBmYA/45RoANAl8CV4BmIA/sBW0qSgW4wQH7gBVgHpjQhrKvCH4Q+AK4DNQJLpJDJZCSiJIAXgGWgI+A60BCvf0LPALGnEQW2AZm973fYUANAW2CLSiFgkwXS2lr4y7he0Av0A28I+vDwIyAJ4FfHDxka9cJrwuySqC7SiLpOy3H9eODXGIOuAt0KZFmoFr2zgFrAgaY3gd4HnjuxDaVRC3wQknsuDKLpbS1KQH2AgOyUQ2ckqEa3zsL1OsIoTT2lMIesCWjS07yQZy0fJgPP1Gzvwq4RmYiG0z5vG+fp3Y70Q4D7YVx8b33XeDZSaXmhw7c79LWCCAhgwPAJwZSyt/6gFu+A5BzxX5W88/iGvxhgCeBP9Rtq+BT3tUG4zWgSd0WbDcc6H5Nnc+4apwk4EjPd4BGl/qUgZiR9TN+31SrFcGEosxW8ZJE0W5fuSCIYwOeleVCULBEafeimk1rW9vqNe+zBh2iy3YDMj7v5C/5fEWpLOjzsYufcWAjCKJms9+2oCL9jqnVTdt+AJy3aL/upGac/BngY+W2IcPjwN/2vfAyN3nVai10gmkH6bdWqFXDt4FvBXxaYHWyecOVmfd5m8/b7HM4KANGnfxfB/j8scvLcZdyS3ATwG8OGg0wAHyoXzcJak+tJ8yCkb5bbdNvDfKnE3qoXOYFf2zAPUqj0cErDbT6AHBFkIqjhFOwfTLw9B2/R0GacXLtft4DfngdwBndoehL54Cr1huRGwzJTFY9d/l7p0yuA6tBQKbtL/osOFZUIK0ow0nltvaqksi4zRkOgq7VYBoQcJWM3wwYbtQF0lrjmAGVN1DPe6eUyWpQf0/rTk8M0qkw4SSOOEgZAb42e52WjUaBEgy4Kzs7Pq+SjP+A+8A3ZrqoJr5sgd/jezMyOSrQKdtmX8cl+nSBqwZOBK5W4HkHyjloVeC/UaJYEvDDfZkuKatNMjutDHJHVXKVh+zJRoDPgw1kVRAg28BT4CeXe9VUfcV0nbFdtLvI7et/1LtHG1yMk+naBHlN/TYJNuXveRm5C3znwHNqesuAq9UVqnWTukPqldi1RLf+eVGmIj3mZDaqwB547LQQlKR1Bmi3mm+S9VmXfqLUxc8F93PXZKzONvnAlpZMHDMHnC9saUE5/bbevoqBVz8uFeBWs8ugy1o0EDZkZ0qmnlsQjR7QX61BVxMkh1bjIe9kluIcpISAO00KKT1zU8BZP+cEvG6Q7N8xd+qtvTJbCFJwVE/XlVISCZm8I8BF71VZPepKy/Ap+0oE6TZp0snHPR4LX77vchWD84PX2d0um5HGZLM5AF8M9L1TyqCbjNFX1mC8pzW+r5YrAsDLcfR7EqeXEwJOa2npQLcb6p9yAgzwu0HX41FAdK6WiyuHkzwfvm2RlAm8PKWeyxJwlPl+FPRZGd4rZ8CPBNjghnTJwCtbwJiA6g22eWuRWFfiDf0TesGAe/q2AC7ZleQtu/4HlhCAovT5rwYAAAAASUVORK5CYII="};let cur='soldier';
+function tint(src,col,cb){const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=i.width;c.height=i.height;const x=c.getContext('2d');x.drawImage(i,0,0);x.globalCompositeOperation='source-in';x.fillStyle=col;x.fillRect(0,0,c.width,c.height);cb(c.toDataURL())};i.src=src}
+function setCls(k){cur=k;tint(CI[k],getComputedStyle(st).getPropertyValue('--rt').trim()||'#ffcf6a',setIc)}
+function setIc(u){const g=new Image();g.onload=()=>{const k=Math.min(30/g.width,30/g.height),c=$('#cic');c.style.width=g.width*k+'px';c.style.height=g.height*k+'px';c.src=u};g.src=u}
+const icm=$('#icm');Object.keys(CI).forEach(k=>{const b=document.createElement('button');b.title=k;tint(CI[k],'#fff',u=>b.innerHTML='<img src="'+u+'">');b.onclick=()=>{setCls(k);$('#cl .e').textContent=k[0].toUpperCase()+k.slice(1);icm.classList.remove('on')};icm.append(b)});
+const ub=document.createElement('button');ub.textContent='Upload';ub.style.width='auto';ub.style.padding='0 12px';ub.onclick=()=>pick(u=>{cur=null;setIc(u);icm.classList.remove('on')});icm.append(ub);
+$('#cic').onclick=e=>{e.stopPropagation();icm.classList.toggle('on')};
+document.addEventListener('click',e=>{if(!e.target.closest('#icm'))icm.classList.remove('on')});
+setCls('soldier');
+$('#clr').onclick=()=>{if(!confirm('Clear all text and images?'))return;st.querySelectorAll('.e').forEach(x=>x.textContent='');st.querySelectorAll('.ic').forEach(x=>x.innerHTML='');cur=null;const c=$('#cic');c.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';c.style.width=c.style.height='30px';rmImg()};
+$('#bx').onclick=()=>$('#ban').remove();
+document.querySelectorAll('.tg').forEach(x=>x.onclick=()=>$('#tl').classList.toggle('on'));
+</script></body></html>
